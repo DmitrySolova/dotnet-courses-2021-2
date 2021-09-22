@@ -70,7 +70,7 @@ namespace Task1
                     else
 					{
                         square = parsedA * parsedB;
-                        Console.WriteLine("Площадь прямоугольника со сторонами (A;B) ({0},{1}) = {2}", parsedA, parsedB, square);
+                        Console.WriteLine(square);
                         incorrectInput = false;
                     }
                 }
