@@ -10,7 +10,7 @@ namespace Task4
 
 			string inputN;
 
-			// Высота пирамидки
+			// Количество секций пирамидки
 
 			int parsedN;
 
@@ -22,9 +22,10 @@ namespace Task4
 
 			string wrongInputMassage = "Ошибка! Ввести можно только целые числа > 0";
 
-			Console.WriteLine("Привет! Эта программа для отрисовки пирамидки");
-			Console.WriteLine("Число N - это высота пирамидки");
+			Console.WriteLine("Привет! Эта программа для отрисовки елочки");
+			Console.WriteLine("Число N - это число секций елочки");
 			Console.WriteLine("ВНИМАНИЕ! Нельзя вводить некорректные значения N: 0, отрицательные или нецелые числа, строки");
+
 
 			do
 			{
@@ -46,19 +47,15 @@ namespace Task4
 					else
 					{
 						incorrectInput = false;
-						for (int i = 1; i < parsedN + 1; i++)
+						for (int i = 1; i <= parsedN; i++)
 						{
-							for (int n = i; n < parsedN; n++)
+							for (int n = 1; n <= i; n++)
 							{
-								Console.Write("-");
-							}
-							for (int k = 0; k != i * 2 - 1; k++)
-							{
-								Console.Write("*");
-							}
-							if (i != parsedN)
-							{
-								Console.WriteLine();
+								Console.Write(new string(' ', parsedN - n) + new string('*', n * 2 - 1));
+								if (n < parsedN)
+								{
+									Console.WriteLine();
+								}
 							}
 						}
 					}
