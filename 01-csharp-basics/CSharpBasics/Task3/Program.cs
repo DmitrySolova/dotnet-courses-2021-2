@@ -24,14 +24,6 @@ namespace Task3
 
 			Console.WriteLine("Привет! Эта программа для отрисовки пирамидки");
 			Console.WriteLine("Число N - это высота пирамидки");
-			Console.WriteLine("Например: N = 3 даст следующую картинку");
-
-			Console.WriteLine("");
-			Console.WriteLine("  *");
-			Console.WriteLine(" ***");
-			Console.WriteLine("*****");
-			Console.WriteLine("");
-
 			Console.WriteLine("ВНИМАНИЕ! Нельзя вводить некорректные значения N: 0, отрицательные или нецелые числа, строки");
 
 			do
