@@ -18,7 +18,10 @@ namespace Task3
 				{
 					Console.Write("*");
 				}
-				Console.WriteLine();
+				if (i != width)
+                {
+					Console.WriteLine();
+                }
 			}
         }
 	}
