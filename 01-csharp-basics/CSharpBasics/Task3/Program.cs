@@ -54,6 +54,7 @@ namespace Task3
 					else
 					{
 						incorrectInput = false;
+						Console.WriteLine();
 						for (int i = 1; i < parsedN + 1; i++)
 						{
 							for (int n = i; n < parsedN; n++)
@@ -69,6 +70,7 @@ namespace Task3
 								Console.WriteLine();
 							}
 						}
+						Console.WriteLine();
 					}
 				}
 			} while (incorrectInput);
