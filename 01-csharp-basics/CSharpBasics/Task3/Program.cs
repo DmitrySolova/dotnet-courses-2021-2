@@ -10,7 +10,7 @@ namespace Task3
 
 			string inputN;
 
-			// Высота елочки
+			// Высота пирамидки
 
 			int parsedN;
 
@@ -22,8 +22,8 @@ namespace Task3
 
 			string wrongInputMassage = "Ошибка! Ввести можно только целые числа > 0";
 
-			Console.WriteLine("Привет! Эта программа для отрисовки елочки");
-			Console.WriteLine("Число N - это высота елочки");
+			Console.WriteLine("Привет! Эта программа для отрисовки пирамидки");
+			Console.WriteLine("Число N - это высота пирамидки");
 			Console.WriteLine("Например: N = 3 даст следующую картинку");
 
 			Console.WriteLine("");
@@ -54,7 +54,6 @@ namespace Task3
 					else
 					{
 						incorrectInput = false;
-						Console.WriteLine();
 						for (int i = 1; i < parsedN + 1; i++)
 						{
 							for (int n = i; n < parsedN; n++)
@@ -70,7 +69,6 @@ namespace Task3
 								Console.WriteLine();
 							}
 						}
-						Console.WriteLine();
 					}
 				}
 			} while (incorrectInput);
