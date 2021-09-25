@@ -46,17 +46,10 @@ namespace Task3
 					else
 					{
 						incorrectInput = false;
-						for (int i = 1; i < parsedN + 1; i++)
+						for (int n = 1; n <= parsedN; n++)
 						{
-							for (int n = i; n < parsedN; n++)
-							{
-								Console.Write(" ");
-							}
-							for (int k = 0; k != i * 2 - 1; k++)
-							{
-								Console.Write("*");
-							}
-							if (i != parsedN)
+							Console.Write(new string(' ', parsedN - n) + new string('*', n * 2 - 1));
+							if (n < parsedN)
 							{
 								Console.WriteLine();
 							}
