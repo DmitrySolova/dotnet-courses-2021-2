@@ -17,7 +17,7 @@ namespace Task1
             return arr;
         }
 
-        //метод обмена элементов
+        //метод для обмена элементов
         static void Swap(ref int e1, ref int e2)
         {
             var temp = e1;
@@ -27,17 +27,21 @@ namespace Task1
 
         static void SortAndGetMinAndMaxValues(int[] array, out int min, out int max)
         {
-            for (var i = 1; i < array.Length; i++)
+            //расстояние между элементами, которые сравниваются
+            var d = array.Length / 2;
+            while (d >= 1)
             {
-                var key = array[i];
-                var j = i;
-                while ((j > 1) && (array[j - 1] > key))
+                for (var i = d; i < array.Length; i++)
                 {
-                    Swap(ref array[j - 1], ref array[j]);
-                    j--;
+                    var j = i;
+                    while ((j >= d) && (array[j - d] > array[j]))
+                    {
+                        Swap(ref array[j], ref array[j - d]);
+                        j = j - d;
+                    }
                 }
 
-                array[j] = key;
+                d = d / 2;
             }
 
             min = array[0];
@@ -60,6 +64,9 @@ namespace Task1
             int[] arr = Task1.Program.GenerateArray();
             Task1.Program.SortAndGetMinAndMaxValues(arr, out min, out max);
             Task1.Program.PrintArray(arr);
+
+            Console.WriteLine("min = " + min);
+            Console.WriteLine("max = " + max);
 
         }
     }
