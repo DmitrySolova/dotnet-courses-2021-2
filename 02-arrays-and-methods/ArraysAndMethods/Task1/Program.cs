@@ -65,9 +65,6 @@ namespace Task1
             Task1.Program.SortAndGetMinAndMaxValues(arr, out min, out max);
             Task1.Program.PrintArray(arr);
 
-            Console.WriteLine("min = " + min);
-            Console.WriteLine("max = " + max);
-
         }
     }
 }
