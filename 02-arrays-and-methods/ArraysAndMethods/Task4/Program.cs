@@ -29,7 +29,6 @@ namespace Task4
                 {
                     Console.WriteLine(array[i, j]);
                 }
-                Console.WriteLine(" ");
             }
         }
 
@@ -50,11 +49,10 @@ namespace Task4
         }
         static void Main(string[] args)
         {
-            int[,] array = Task4.Program.GenerateTwoDimensionalArray();
-            Task4.Program.PrintTwoDimensionalArray(array);
-            int sum = Task4.Program.GetSumOfElementsOnEvenPositions(array);
-            Console.WriteLine("");
-            Console.WriteLine("sum is " + sum);
+            int[,] array = GenerateTwoDimensionalArray();
+            PrintTwoDimensionalArray(array);
+            int sum = GetSumOfElementsOnEvenPositions(array);
+            Console.WriteLine(sum);
         }
     }
 }

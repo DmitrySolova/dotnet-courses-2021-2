@@ -55,10 +55,10 @@ namespace Task2
         }
         static void Main(string[] args)
         {
-            int[,,] array = Task2.Program.GenerateThreeDimensionalArray();
-            Task2.Program.PrintThreeDimensionalArray(array);
-            Task2.Program.ReplacePositiveElementsWithZero(array);
-            Task2.Program.PrintThreeDimensionalArray(array);
+            int[,,] array = GenerateThreeDimensionalArray();
+            PrintThreeDimensionalArray(array);
+            ReplacePositiveElementsWithZero(array);
+            PrintThreeDimensionalArray(array);
         }
     }
 }

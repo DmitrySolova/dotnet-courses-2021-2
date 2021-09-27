@@ -6,19 +6,8 @@ namespace Task3
 	{
 		static void Main(string[] args)
 		{
-			// Строка, которую будем парсить на проверку правильности ввода N
-
-			string inputN;
-
-			// Высота пирамидки
-
-			int parsedN;
-
-			// Переменная-флаг, показывающий что ввод значения корректен
 
 			bool incorrectInput = false;
-
-			// Сообщение о некорректном значении ввода
 
 			string wrongInputMassage = "Ошибка! Ввести можно только целые числа > 0";
 
@@ -26,12 +15,14 @@ namespace Task3
 			Console.WriteLine("Число N - это высота пирамидки");
 			Console.WriteLine("ВНИМАНИЕ! Нельзя вводить некорректные значения N: 0, отрицательные или нецелые числа, строки");
 
+			int parsedN;
+
 			do
 			{
 				Console.Write("Ввведи число N: ");
-				inputN = Console.ReadLine();
+				string inputN = Console.ReadLine();
 
-				if (int.TryParse(inputN, out parsedN) == false)
+				if (!int.TryParse(inputN, out parsedN))
 				{
 					Console.WriteLine(wrongInputMassage);
 					incorrectInput = true;
@@ -46,17 +37,19 @@ namespace Task3
 					else
 					{
 						incorrectInput = false;
-						for (int n = 1; n <= parsedN; n++)
-						{
-							Console.Write(new string(' ', parsedN - n) + new string('*', n * 2 - 1));
-							if (n < parsedN)
-							{
-								Console.WriteLine();
-							}
-						}
 					}
 				}
 			} while (incorrectInput);
-        }
+
+			for (int n = 1; n <= parsedN; n++)
+			{
+				Console.Write(new string(' ', parsedN - n) + new string('*', n * 2 - 1));
+				if (n < parsedN)
+				{
+					Console.WriteLine();
+				}
+			}
+
+		}
 	}
 }

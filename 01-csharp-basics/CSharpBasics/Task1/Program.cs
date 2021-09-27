@@ -6,34 +6,21 @@ namespace Task1
     {
         static void Main(string[] args)
         {
-            // Строки сторон, которые будем проверять на наличие корректного ввода
-
-            string inputA = "";
-            string inputB = "";
-
-            // Числа сторон и площади, с которыми будем работать
-
-            int parsedA;
-            int parsedB;
-            int square;
-
-            // Переменная-флаг, показывающий что ввод значения корректен
-
             bool incorrectInput = true;
-
-            // Сообщение о некорректном значении ввода
 
             string wrongInputMassage = "Ошибка! Ввести можно только целые числа > 0";
 
             Console.WriteLine("Привет! Эта программа для расчета площади прямоугольника со сторонами A и B");
             Console.WriteLine("ВНИМАНИЕ! Нельзя вводить некорректные значения сторон: 0, отрицательные или нецелые числа, строки");
 
+            int parsedA;
+
             do
             {
                 Console.Write("Ввведи сторону A: ");
-                inputA = Console.ReadLine();
+                string inputA = Console.ReadLine();
 
-                if (int.TryParse(inputA, out parsedA) == false)
+                if (!int.TryParse(inputA, out parsedA))
                 {
                     incorrectInput = true;
                 }
@@ -51,12 +38,14 @@ namespace Task1
                 }
             } while (incorrectInput);
 
+            int parsedB;
+
             do
             {
                 Console.Write("Ввведи сторону B: ");
-                inputB = Console.ReadLine();
+                string inputB = Console.ReadLine();
 
-                if (int.TryParse(inputB, out parsedB) == false)
+                if (!int.TryParse(inputB, out parsedB))
                 {
                     incorrectInput = true;
                 }
@@ -69,12 +58,13 @@ namespace Task1
                     }
                     else
 					{
-                        square = parsedA * parsedB;
-                        Console.WriteLine(square);
                         incorrectInput = false;
                     }
                 }
             } while (incorrectInput);
+
+            int square = parsedA * parsedB;
+            Console.WriteLine(square);
 
         }
     }

@@ -39,9 +39,9 @@ namespace Task3
         }
         static void Main(string[] args)
         {
-            int[] array = Task3.Program.GenerateArray();
-            Task3.Program.PrintArray(array);
-            int sum = Task3.Program.GetSumOfNonNegativeElements(array);
+            int[] array = GenerateArray();
+            PrintArray(array);
+            int sum = GetSumOfNonNegativeElements(array);
             Console.WriteLine(sum);
         }
     }
