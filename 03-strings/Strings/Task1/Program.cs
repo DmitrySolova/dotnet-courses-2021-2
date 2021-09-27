@@ -6,7 +6,7 @@ namespace Strings
     {
         static double AverageLenghtWords(string inputString)
         {
-            char[] delimiterChars = { ' ', ',', '.', ':', '\t' };
+            char[] delimiterChars = { ' ', ',', '.', ':', ';', '!', '?', '-'};
 
             string[] words = inputString.Split(delimiterChars, StringSplitOptions.RemoveEmptyEntries);
 
