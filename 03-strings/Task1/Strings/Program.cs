@@ -4,13 +4,8 @@ namespace Strings
 {
     class Program
     {
-        static void Main(string[] args)
+        static double AverageLenghtWords(string inputString)
         {
-            Console.WriteLine("Привет! Эта программа для подсчета средней длины слова во введенной текстовой строке");
-            Console.WriteLine("Введи строку: ");
-
-            string inputString = Console.ReadLine();
-
             char[] delimiterChars = { ' ', ',', '.', ':', '\t' };
 
             string[] words = inputString.Split(delimiterChars, StringSplitOptions.RemoveEmptyEntries);
@@ -24,11 +19,18 @@ namespace Strings
 
             double averageLength = tempAverageLenght / words.Length;
 
-            averageLength = Math.Truncate(averageLength);
+            //averageLength = Math.Truncate(averageLength);
 
+            return averageLength;
+        }
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Привет! Эта программа для подсчета средней длины слова во введенной текстовой строке");
+            Console.WriteLine("Введи строку: ");
+
+            string inputString = Console.ReadLine();
+            double averageLength = AverageLenghtWords(inputString);
             Console.WriteLine(averageLength);
-
-
         }
     }
 }
