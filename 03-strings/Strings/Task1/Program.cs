@@ -19,7 +19,7 @@ namespace Strings
 
             double averageLength = tempAverageLenght / words.Length;
 
-            //averageLength = Math.Truncate(averageLength);
+            averageLength = Math.Truncate(averageLength);
 
             return averageLength;
         }
