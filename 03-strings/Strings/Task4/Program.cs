@@ -11,30 +11,30 @@ namespace Task4
 
             string str = "";
             StringBuilder sb = new StringBuilder();
-            int N = 100;
+            int N = 10000;
 
-            Stopwatch stopWatchStringBuilder = new Stopwatch();
-            Stopwatch stopWatchString = new Stopwatch();
+            Stopwatch stopWatch = new Stopwatch();
 
-            stopWatchString.Start();
+            stopWatch.Start();
             for (int i = 0; i < N; i++)
             {
                 str += "*";
             }
-            stopWatchString.Stop();
+            stopWatch.Stop();
 
-            stopWatchStringBuilder.Start();
+            Console.WriteLine("String: " + stopWatch.ElapsedMilliseconds);
+
+            stopWatch.Reset();
+
+            stopWatch.Start();
             for (int i = 0; i < N; i++)
             {
                 sb.Append("*");
             }
-            stopWatchStringBuilder.Stop();
+            stopWatch.Stop();
 
-            TimeSpan tsString = stopWatchString.Elapsed;
-            TimeSpan tsStringBuilder = stopWatchStringBuilder.Elapsed;
 
-            Console.WriteLine("String: " + tsString.Milliseconds);
-            Console.WriteLine("StringBuilder: " + tsStringBuilder.Milliseconds);
+            Console.WriteLine("StringBuilder: " + stopWatch.ElapsedMilliseconds);
 
         }
     }
