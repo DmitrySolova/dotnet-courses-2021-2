@@ -1,0 +1,34 @@
+﻿using System;
+
+namespace Strings
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Привет! Эта программа для подсчета средней длины слова во введенной текстовой строке");
+            Console.WriteLine("Введи строку: ");
+
+            string inputString = Console.ReadLine();
+
+            char[] delimiterChars = { ' ', ',', '.', ':', '\t' };
+
+            string[] words = inputString.Split(delimiterChars, StringSplitOptions.RemoveEmptyEntries);
+
+            int tempAverageLenght = 0;
+
+            foreach (string word in words)
+            {
+                tempAverageLenght += word.Length;
+            }
+
+            double averageLength = tempAverageLenght / words.Length;
+
+            averageLength = Math.Truncate(averageLength);
+
+            Console.WriteLine(averageLength);
+
+
+        }
+    }
+}
