@@ -10,7 +10,7 @@ namespace Strings
 
             string[] words = inputString.Split(delimiterChars, StringSplitOptions.RemoveEmptyEntries);
 
-            int tempAverageLenght = 0;
+            double tempAverageLenght = 0;
 
             foreach (string word in words)
             {
@@ -18,8 +18,6 @@ namespace Strings
             }
 
             double averageLength = tempAverageLenght / words.Length;
-
-            averageLength = Math.Truncate(averageLength);
 
             return averageLength;
         }
