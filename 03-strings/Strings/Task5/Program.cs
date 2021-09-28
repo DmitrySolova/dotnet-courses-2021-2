@@ -10,7 +10,7 @@ namespace Task5
             Console.Write("Введите HTML текст: ");
             string stringWithHTML = Console.ReadLine();
             string modifiedString = Regex.Replace(stringWithHTML, "<[^>]+>", "_");
-            Console.WriteLine(modifiedString);
+            Console.WriteLine("Результат замены: " + modifiedString);
         }
     }
 }
