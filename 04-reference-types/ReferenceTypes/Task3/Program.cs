@@ -40,10 +40,7 @@ namespace Task3
             return Math.Round(area, 2);
         }
 
-        public int GetPerimeter()
-        {
-            return _a + _b + _c;
-        }
+        public int GetPerimeter() => _a + _b + _c;
     }
     class Program
     {
