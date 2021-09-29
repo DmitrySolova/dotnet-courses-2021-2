@@ -7,8 +7,6 @@ namespace Task2
         int _radius;
         int _x;
         int _y;
-        double _circumference;
-        double _area;
 
         public Round (int radius, int x, int y)
         {
