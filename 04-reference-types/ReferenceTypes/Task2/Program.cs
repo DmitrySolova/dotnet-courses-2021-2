@@ -12,6 +12,7 @@ namespace Task2
 
         public Round (int radius, int x, int y)
         {
+            if (radius <= 0) throw new ArgumentOutOfRangeException($"{nameof(radius)} Радиус не может быть отрицательным");
             _radius = radius;
             _x = x;
             _y = y;
