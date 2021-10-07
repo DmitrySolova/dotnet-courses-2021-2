@@ -33,24 +33,24 @@ namespace Task2
 
         public virtual double Circumference
         {
-            get => Math.Round(2 * Math.PI * _radius, 2);
+            get => 2 * Math.PI * _radius;
         }
 
         public virtual double Area
         {
-            get => Math.Round(Math.PI * _radius * _radius, 2);
+            get => Math.PI * _radius * _radius;
         }
     }
 
     class Ring : Round
     {
-        int _innerRadius;
+        private int _innerRadius;
 
         public Ring (int radius, int innerRadius, int x, int y)
             : base(radius, x, y)
         {
             if (innerRadius <= 0) throw new ArgumentOutOfRangeException($"{nameof(innerRadius)} Внутренний радиус не может быть отрицательным");
-            if (innerRadius > radius) throw new ArgumentOutOfRangeException($"{nameof(innerRadius)} Внутренний радиус не может быть больше внутреннего");
+            if (innerRadius >= radius) throw new ArgumentOutOfRangeException($"{nameof(innerRadius)} Внутренний радиус не может быть больше внутреннего");
             _innerRadius = innerRadius;
         }
 
@@ -58,15 +58,14 @@ namespace Task2
         {
             get => _innerRadius;
         }
-
         public override double Circumference
         {
-            get => _radius + _innerRadius;
+            get => 2 * Math.PI * _radius + 2 * Math.PI * _innerRadius;
         }
 
         public override double Area
         {
-            get => Math.Round(Math.PI * (_radius * _radius - _innerRadius * _innerRadius), 2);
+            get => Math.PI * _radius * _radius - Math.PI * (_innerRadius * _innerRadius);
         }
     }
 
@@ -74,7 +73,7 @@ namespace Task2
     {
         static void Main(string[] args)
         {
-            Round ring = new Ring(8, 6, 0, 0);
+            Round ring = new Ring(9, 8, 0, 0);
             Console.WriteLine(ring.Area);
             Console.WriteLine(ring.Circumference);
         }

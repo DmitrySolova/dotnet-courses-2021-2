@@ -4,9 +4,9 @@ namespace Task2
 {
     class Round
     {
-        int _radius;
-        int _x;
-        int _y;
+        protected int _radius;
+        protected int _x;
+        protected int _y;
 
         public Round (int radius, int x, int y)
         {
@@ -33,12 +33,12 @@ namespace Task2
 
         public double Circumference
         {
-            get => Math.Round(2 * Math.PI * _radius, 2);
+            get => 2 * Math.PI * _radius;
         }
 
         public double Area
         {
-            get => Math.Round(Math.PI * _radius * _radius, 2);
+            get => Math.PI * _radius * _radius;
         }
     }
 

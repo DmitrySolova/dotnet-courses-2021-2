@@ -4,9 +4,9 @@ namespace Task3
 {
     class Triangle
     {
-        int _a;
-        int _b;
-        int _c;
+        protected int _a;
+        protected int _b;
+        protected int _c;
 
         public Triangle (int a, int b, int c)
         {
@@ -35,9 +35,9 @@ namespace Task3
 
         public double GetArea()
         {
-            double p = (_a + _b + _c) / 2.0;
-            double area = Math.Sqrt(p * (p - _a) * (p - _b) * (p - _c));
-            return Math.Round(area, 2);
+            double halfPerimeter = (_a + _b + _c) / 2.0;
+            double area = Math.Sqrt(halfPerimeter * (halfPerimeter - _a) * (halfPerimeter - _b) * (halfPerimeter - _c));
+            return area;
         }
 
         public int GetPerimeter() => _a + _b + _c;

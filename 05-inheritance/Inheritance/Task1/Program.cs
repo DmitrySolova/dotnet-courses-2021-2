@@ -5,17 +5,18 @@ namespace Task1
 {
     public class User
     {
-        DateTime _dateOfBirdth;
-        string _name;
-        string _lastName;
-        string _patronymic;
+        protected DateTime _dateOfBirdth;
+        protected string _name;
+        protected string _lastName;
+        protected string _patronymic;
+        protected string _regexPattern = @"(\d+|_+|\s+)";
 
         public User(DateTime dateOfBirdth, string name, string lastName, string patronymic)
         {
-            if (DateTime.Now.Year - dateOfBirdth.Year < 0) throw new ArgumentOutOfRangeException($"{nameof(dateOfBirdth)} Год рождения не может быть отрицательным");
-            if (Regex.IsMatch(name, @"(\d+|_+|\s+)")) throw new ArgumentException($"{nameof(name)} В имени есть недопустимые символы");
-            if (Regex.IsMatch(lastName, @"(\d+|_+|\s+)")) throw new ArgumentException($"{nameof(lastName)} В фамилии есть недопустимые символы");
-            if (Regex.IsMatch(patronymic, @"(\d+|_+|\s+)")) throw new ArgumentException($"{nameof(patronymic)} В отчестве есть недопустимые символы");
+            if (DateTime.Now.Year - dateOfBirdth.Year < 0) throw new ArgumentOutOfRangeException($"{nameof(dateOfBirdth)} Не корректный год рождения");
+            if (Regex.IsMatch(name, _regexPattern)) throw new ArgumentException($"{nameof(name)} В имени есть недопустимые символы");
+            if (Regex.IsMatch(lastName, _regexPattern)) throw new ArgumentException($"{nameof(lastName)} В фамилии есть недопустимые символы");
+            if (Regex.IsMatch(patronymic, _regexPattern)) throw new ArgumentException($"{nameof(patronymic)} В отчестве есть недопустимые символы");
             _dateOfBirdth = dateOfBirdth;
             _name = name;
             _lastName = lastName;
@@ -24,7 +25,15 @@ namespace Task1
 
         public int Age
         {
-            get => DateTime.Now.Year - _dateOfBirdth.Year;
+            get
+            {
+                int age = DateTime.Now.Year - _dateOfBirdth.Year;
+                if (DateTime.Now.DayOfYear < _dateOfBirdth.DayOfYear)
+                {
+                    age--;
+                }
+                return age;
+            }
         }
 
         public string Name
@@ -45,21 +54,29 @@ namespace Task1
 
     class Employee : User
     {
-        DateTime _startDate;
-        string _title;
+        private DateTime _startDate;
+        private string _title;
 
         public Employee(DateTime dateOfBirdth, string name, string lastName, string patronymic, DateTime startDate, string title)
             : base(dateOfBirdth, name, lastName, patronymic)
         {
-            if (DateTime.Now.Year - startDate.Year < 0) throw new ArgumentOutOfRangeException($"{nameof(startDate)} Год стажа работы не может быть отрицательным");
-            if (Regex.IsMatch(title, @"(\d+|_+|\s+)")) throw new ArgumentException($"{nameof(title)} В должности есть недопустимые символы");
+            if (DateTime.Now.Year - startDate.Year < 0) throw new ArgumentOutOfRangeException($"{nameof(startDate)} Некорректный год стажа работы");
+            if (Regex.IsMatch(title, _regexPattern)) throw new ArgumentException($"{nameof(title)} В должности есть недопустимые символы");
             _startDate = startDate;
             _title = title;
         }
 
         public int Experience
         {
-            get => DateTime.Now.Year - _startDate.Year;
+            get
+            {
+                int experience = DateTime.Now.Year - _startDate.Year;
+                if (DateTime.Now.DayOfYear < _startDate.DayOfYear)
+                {
+                    experience--;
+                }
+                return experience;
+            }
         }
 
         public string Title

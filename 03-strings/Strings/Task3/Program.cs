@@ -14,13 +14,13 @@ namespace Task3
             Console.WriteLine("{0,-40}{1,-47}{2,-25}", "Время (развернуто)", DateTime.Now.ToString("T", cultureA), DateTime.Now.ToString("T", cultureB));
             Console.WriteLine("{0,-40}{1,-47}{2,-25}", "Время (коротко)", DateTime.Now.ToString("t", cultureA), DateTime.Now.ToString("t", cultureB));
             Console.WriteLine("{0,-40}{1,-47}{2,-25}", "Разделитель дробной и целой части", 12.345.ToString(cultureA), 12.345.ToString(cultureB));
-            Console.WriteLine("{0,-40}{1,-47}{2,-25}", "Разделитель групп разрядов", String.Format(cultureA, "{0:0,0}", 1234567890), String.Format(cultureB, "{0:0,0}", 1234567890));
+            Console.WriteLine("{0,-40}{1,-47}{2,-25}", "Разделитель групп разрядов", string.Format(cultureA, "{0:0,0}", 1234567890), string.Format(cultureB, "{0:0,0}", 1234567890));
             Console.WriteLine();
         }
         static void Main(string[] args)
         {
             CultureInfo RuCulture = new CultureInfo("ru-RU");
-            CultureInfo EnCulture = new CultureInfo("en-GB");
+            CultureInfo EnCulture = new CultureInfo("en-Gb");
             CultureInfo InvCulture = CultureInfo.InvariantCulture;
 
             CultureDifference(RuCulture, EnCulture);
