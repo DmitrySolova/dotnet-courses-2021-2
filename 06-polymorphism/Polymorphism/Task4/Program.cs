@@ -15,7 +15,7 @@ namespace Task4
 
         public void Load() { }
 
-        public bool checkGameLogic()
+        public bool СheckGameLogic()
         {
             if (_errorGameLogic)
             {
