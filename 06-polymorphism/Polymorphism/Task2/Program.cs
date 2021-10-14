@@ -2,42 +2,6 @@
 
 namespace Task2
 {
-    interface ISeries
-    {
-        double GetCurrent();
-        bool MoveNext();
-        void Reset();
-
-    }
-
-    class GeometricProgression : ISeries
-    {
-
-        double start, step;
-        int index;
-
-        public GeometricProgression(double start, double step)
-        {
-            this.start = start;
-            this.step = step;
-            this.index = 1;
-        }
-
-        public double GetCurrent()
-        {
-            return start * Math.Pow(step, index - 1);
-        }
-        public bool MoveNext()
-        {
-            index++;
-            return true;
-        }
-        public void Reset()
-        {
-            index = 1;
-        }
-
-    }
     class Program
     {
         public static void PrintSeries(ISeries series, int lastElement)
