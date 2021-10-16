@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Task4
 {
-    class IMovable
+    interface IMovable
     {
         public void Move()
         {
