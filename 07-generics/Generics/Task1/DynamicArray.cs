@@ -35,6 +35,7 @@ namespace Task1
             {
                 _capacity = _capacity * 2;
             }
+            // проверку, а надо ли вообще менять массив
             Array.Resize(ref _array, _capacity);
         }
         public void Add(T element)

@@ -10,12 +10,6 @@ namespace Task2
         private int _x;
         private int _y;
 
-        public Round(int radius, int x, int y)
-        {
-            _radius = Radius;
-            _x = X;
-            _y = Y;
-        }
 
         public Round(int radius, int x, int y)
         {

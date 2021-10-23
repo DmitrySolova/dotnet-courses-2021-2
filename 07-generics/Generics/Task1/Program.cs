@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 
-// в отдельную dll, а в ней отдельный класс
 namespace Task1
 {
     class Program

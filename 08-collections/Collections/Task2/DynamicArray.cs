@@ -22,8 +22,6 @@ namespace Task2
 
         public DynamicArray(IEnumerable<T> collection)
         {
-            _array = new T[8];
-            _capacity = 8;
             if (collection == null)
                 throw new Exception("Empty collection");
 
@@ -62,11 +60,14 @@ namespace Task2
         }
         public void EnsureCapacity(int min)
         {
-            while (min >= _capacity - _lenght)
+            while (min > _capacity - _lenght)
             {
                 _capacity = _capacity * 2;
             }
-            Array.Resize(ref _array, _capacity);
+            if (min > _capacity - _lenght)
+            {
+                Array.Resize(ref _array, _capacity);
+            }
         }
         public void Add(T element)
         {
@@ -152,7 +153,7 @@ namespace Task2
         {
             get
             {
-                if (i >= _lenght)
+                if (i > _lenght)
                 {
                     throw new ArgumentOutOfRangeException("Выход за границу массива");
                 }
