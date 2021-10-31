@@ -14,13 +14,14 @@ namespace Task2
             Person jack = new Person("Джек", new DateTime(2021, 10, 25, 20, 7, 7));
 
             office.Come(dima);
-            office.Come(oleg);
             office.Come(sasha);
             office.Come(jack);
-            office.Leave(dima);
             office.Come(oleg);
+            office.Leave(dima);
             office.Leave(sasha);
             office.Leave(jack);
+            office.Leave(oleg);
+
         }
     }
 }

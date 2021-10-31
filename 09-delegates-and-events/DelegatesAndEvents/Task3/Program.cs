@@ -60,12 +60,15 @@ namespace Task3
                 }
             }
             ThreadNotify?.Invoke($"Сортировка завершилась");
+
             ArrayToInlineString(stringsArray);
         }
 
         public static Thread SortAsync(string[] stringsArray, Func<string, string, int> logicFunc)
         {
-            return new Thread(() => Sort(stringsArray, CompareStrings));
+            var thread = new Thread(() => Sort(stringsArray, logicFunc));
+            thread.Start();
+            return thread;
         }
         public static void ThreadMassage(string massage)
         {
@@ -77,18 +80,16 @@ namespace Task3
             var strings2 = new string[5] { "absфыаasf", "adмывss", "a3213bs", "b32s", "aпвыbs" };
             var strings3 = new string[5] { "absмавмasf", "aвфывфdss", "aфыаbs", "паbs", "ab64364s" };
 
+            // можно добавить в ThreadNotify?
             ThreadNotify += ThreadMassage;
 
             strings1.ToString();
 
             var th1 = SortAsync(strings1, CompareStrings);
-            var th2 = SortAsync(strings2, CompareStrings);
-            var th3 = SortAsync(strings3, CompareStrings);
-
-            th1.Start();
-            th2.Start();
-            th3.Start();
-
+            //var th2 = SortAsync(strings2, CompareStrings);
+            //var th3 = SortAsync(strings3, CompareStrings);
+            th1.Join();
+            Console.WriteLine("ya pervii");
         }
     }
 }

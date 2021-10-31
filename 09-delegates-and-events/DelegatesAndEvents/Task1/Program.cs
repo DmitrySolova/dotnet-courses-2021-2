@@ -9,7 +9,15 @@ namespace Task1
         {
             if (s1.Length == s2.Length)
             {
-                return 0;
+                int boolIntAlphabeticalOrder = String.Compare(s1, s2);
+                if (boolIntAlphabeticalOrder == 0)
+                {
+                    return 0;
+                }
+                if (boolIntAlphabeticalOrder < 0)
+                {
+                    return -1;
+                }
             }
             if (s1.Length < s2.Length)
             {
@@ -17,7 +25,7 @@ namespace Task1
             }
             return 1;
         }
-
+        // сортировку по алфавиту перенести в логическую функцию
         public static void Sort(string[] stringsArray, Func<string, string, int> logicFunc)
         {
             string tempString = "";
@@ -28,16 +36,6 @@ namespace Task1
                 {
                     if (logicFunc(stringsArray[i], stringsArray[j]) >= 0)
                     {
-
-                        if (logicFunc(stringsArray[i], stringsArray[j]) == 0)
-                        {
-                            int boolIntAlphabeticalOrder = String.Compare(stringsArray[i], stringsArray[i + 1]);
-                            if (boolIntAlphabeticalOrder <= 0)
-                            {
-                                continue;
-                            }
-                        }
-
                         tempString = stringsArray[i];
                         stringsArray[i] = stringsArray[j];
                         stringsArray[j] = tempString;
