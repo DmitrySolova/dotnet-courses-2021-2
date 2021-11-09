@@ -21,15 +21,23 @@ namespace Task2
 
         public bool Equals(Employee other)
         {
-            if (this._title.Equals(other._title))
-            {
-                return true;
-            } else
-            {
-                return false;
-            }
+            // проверка на то, являются ли 2 объекта одним и тем же экземпляром
+            if (ReferenceEquals(null, other)) return false;
+            if (ReferenceEquals(this, other)) return true;
+
+            return this.Title == other.Title; // сравниваем свойства Title, вернет false, тк Специалист != Директор
         }
 
+        public override bool Equals(object o)
+        {
+            // проверка на то, являются ли 2 объекта одним и тем же экземпляром
+            if (ReferenceEquals(null, o)) return false;
+            if (ReferenceEquals(this, o)) return true;
+
+            // продебажить и написать в вк что, вернуло
+            var tmp = o as Employee;  // перекастовываем object o к Employee, вернет Employee
+            return Equals(tmp);  // переходим на строку 22
+        }
         public int Experience
         {
             get

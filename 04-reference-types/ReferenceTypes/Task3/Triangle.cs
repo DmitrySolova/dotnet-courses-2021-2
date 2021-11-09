@@ -12,8 +12,7 @@ namespace Task3
 
         public Triangle(int a, int b, int c)
         {
-
-            if (!((a + b >= c) & (b + c >= a) & (a + c) >= b))
+            if (!((a + b >= c) && (b + c >= a) && (a + c) >= b))
             {
                 throw new ArgumentOutOfRangeException($" Некорректный ввод - треугольник с такими сторонами не существует");
             }

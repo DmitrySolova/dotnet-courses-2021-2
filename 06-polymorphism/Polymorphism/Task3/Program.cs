@@ -28,7 +28,11 @@ namespace Task3
 
         static void Main(string[] args)
         {
-            ISeries series = new ArithmeticProgression(2, 5);
+            IIndexableSeries series = new ArithmeticProgression(2, 5);
+            PrintIndexable(series, 100);
+
+            Console.WriteLine();
+
             PrintSeries(series, 100);
 
             Console.WriteLine();

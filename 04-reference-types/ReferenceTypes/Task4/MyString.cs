@@ -129,10 +129,8 @@ namespace Task4
                 }
                 return true;
             }
-            else
-            {
-                return false;
-            }
+
+            return false;
 
         }
 

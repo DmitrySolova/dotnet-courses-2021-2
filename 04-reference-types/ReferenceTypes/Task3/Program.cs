@@ -6,7 +6,7 @@ namespace Task3
     {
         static void Main(string[] args)
         {
-            Triangle triangle = new Triangle(3, 5, 7);
+            Triangle triangle = new Triangle(-1, -1, -1);
             Console.WriteLine(triangle.GetArea());
             Console.WriteLine(triangle.GetPerimeter());
         }
