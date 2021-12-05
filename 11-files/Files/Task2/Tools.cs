@@ -29,35 +29,68 @@ namespace Task2
             return time;
         }
 
-        public static string CopyFolder(string fromPath, string toPath)
+        public static string CopyFolder(PathConfigure pathConfigure, string sourceDirName, string destDirName)
         {
-            if (Directory.Exists(toPath))
+            DirectoryInfo dir = new DirectoryInfo(sourceDirName);
+
+            pathConfigure.AddTempName();
+
+            if (!dir.Exists)
             {
-                Directory.Delete(toPath, true);
-                CreateTempFolder(toPath);
+                throw new DirectoryNotFoundException(
+                    "Source directory does not exist or could not be found: "
+                    + sourceDirName);
             }
 
+            DirectoryInfo[] dirs = dir.GetDirectories();
 
-            string fileName = "";
-            string destFile = "";
+            Directory.CreateDirectory(destDirName);
 
-            if (Directory.Exists(fromPath))
+            FileInfo[] files = dir.GetFiles();
+            foreach (FileInfo file in files)
             {
-                string[] files = Directory.GetFiles(fromPath);
-
-                foreach (string s in files)
-                {
-                    fileName = Path.GetFileName(s);
-                    destFile = Path.Combine(toPath, fileName);
-                    File.Copy(s, destFile, true);
-                }
-            }
-            else
-            {
-                throw new Exception($"Не могу найти {fromPath}");
+                string tempPath = Path.Combine(destDirName, file.Name);
+                file.CopyTo(tempPath, true);
             }
 
-            return toPath;
+            foreach (DirectoryInfo subdir in dirs)
+            {
+                string tempPath = Path.Combine(destDirName, subdir.Name);
+                CopyFolder(pathConfigure, subdir.FullName, tempPath);
+            }
+
+            return destDirName;
+        }
+
+        public static string CopyFolder(string sourceDirName, string destDirName)
+        {
+            DirectoryInfo dir = new DirectoryInfo(sourceDirName);
+
+            if (!dir.Exists)
+            {
+                throw new DirectoryNotFoundException(
+                    "Source directory does not exist or could not be found: "
+                    + sourceDirName);
+            }
+
+            DirectoryInfo[] dirs = dir.GetDirectories();
+
+            Directory.CreateDirectory(destDirName);
+
+            FileInfo[] files = dir.GetFiles();
+            foreach (FileInfo file in files)
+            {
+                string tempPath = Path.Combine(destDirName, file.Name);
+                file.CopyTo(tempPath, true);
+            }
+
+            foreach (DirectoryInfo subdir in dirs)
+            {
+                string tempPath = Path.Combine(destDirName, subdir.Name);
+                CopyFolder(subdir.FullName, tempPath);
+            }
+
+            return destDirName;
         }
 
         public static string CreateMainTempFolder(string path)

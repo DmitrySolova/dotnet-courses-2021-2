@@ -66,13 +66,13 @@ namespace Task2
             Console.WriteLine($"Время изменения: {File.GetLastAccessTime(file.FullPath)}");
 
             string tempFolderName = Tools.GetAccesTime(file);
-            string path = Tools.CheckBackslash(_pathConfigure.TempFolderPath) + tempFolderName;
+            // можно сделать через path
+            //string path = Tools.CheckBackslash(_pathConfigure.TempFolderPath) + tempFolderName;
+            string path = Path.Combine(_pathConfigure.TempFolderPath, tempFolderName);
 
-            Tools.CreateTempFolder(path);
+            //_pathConfigure.AddTempName();
 
-            _pathConfigure.AddTempName();
-
-            Tools.CopyFolder(_pathConfigure.WatchFolderPath, path);
+            Tools.CopyFolder(_pathConfigure, _pathConfigure.WatchFolderPath, path);
         }
         private static void OnCreated(object sender, FileSystemEventArgs file)
         {
@@ -81,13 +81,11 @@ namespace Task2
             string tempFolderName = Tools.GetAccesTime(file);
             string path = Tools.CheckBackslash(_pathConfigure.TempFolderPath) + tempFolderName;
 
-            Tools.CreateTempFolder(path);
-
-            _pathConfigure.AddTempName();
+            //_pathConfigure.AddTempName();
 
             Console.WriteLine(value);
 
-            Tools.CopyFolder(_pathConfigure.WatchFolderPath, path);
+            Tools.CopyFolder(_pathConfigure, _pathConfigure.WatchFolderPath, path);
         }
         private static void OnDeleted(object sender, FileSystemEventArgs file)
         {
@@ -100,11 +98,9 @@ namespace Task2
 
             if (watchFolderFiles.Length != 0)
             {
-                Tools.CreateTempFolder(path);
+                //_pathConfigure.AddTempName();
 
-                _pathConfigure.AddTempName();
-
-                Tools.CopyFolder(_pathConfigure.WatchFolderPath, path);
+                Tools.CopyFolder(_pathConfigure, _pathConfigure.WatchFolderPath, path);
             }
 
         }
@@ -117,11 +113,9 @@ namespace Task2
             string tempFolderName = Tools.GetAccesTime(renamedFile);
             string path = Tools.CheckBackslash(_pathConfigure.TempFolderPath) + tempFolderName;
 
-            Tools.CreateTempFolder(path);
+            //_pathConfigure.AddTempName();
 
-            _pathConfigure.AddTempName();
-
-            Tools.CopyFolder(_pathConfigure.WatchFolderPath, path);
+            Tools.CopyFolder(_pathConfigure, _pathConfigure.WatchFolderPath, path);
         }
         private static void OnError(object sender, ErrorEventArgs error) =>
             PrintException(error.GetException());

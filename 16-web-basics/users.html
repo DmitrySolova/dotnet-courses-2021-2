@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+
+<html lang="ru">
+<head>
+    <meta charset="utf-8" />
+    <title>Главная</title>
+    <link href="styles/users.css" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="header-title"> Пользователи и награды </div>
+        <ul class="header-menu">
+            <li><a href="#">Главная</a></li>
+            <li><a href="users.html">Пользователи</a></li>
+            <li><a href="rewards.html">Награды</a></li>
+        </ul>
+    </header>
+    <main>
+        <h1>Это страница с пользователями</h1>
+
+        <table class="user-table">
+            <tr class="table-headers"> <!--ряд с ячейками заголовков-->
+                <th>ID</th>
+                <th>Имя</th>
+                <th>Фамилия</th>
+                <th>Дата рождения</th>
+                <th>Награды</th>
+                <th>Действия</th>
+            </tr>
+            
+            <tr class="table-content-0"> <!--ряд с ячейками тела таблицы-->
+                <th>0</th>
+                <th>Вадим</th>
+                <th>Сухаров</th>
+                <th>01.02.1990</th>
+                <th><a href="#">Награды</a></th>
+                <th>
+                    <a href="#">Добавить награду</a>
+                    <a href="#">Изменить пользователя</a>
+                </th>
+            </tr> 
+
+            <tr class="table-content-1">
+                <th>1</th>
+                <th>Андрей</th>
+                <th>Веселкин</th>
+                <th>06.05.1981</th>
+                <th><a href="#">Награды</a></th>
+                <th>
+                    <a href="#">Добавить награду</a>
+                    <a href="#">Изменить пользователя</a>
+                </th>
+            </tr> 
+
+            <tr class="table-content-2">
+                <th>2</th>
+                <th>Ангенина</th>
+                <th>Макарова</th>
+                <th>26.09.2001</th>
+                <th><a href="#">Награды</a></th>
+                <th>
+                    <a href="#">Добавить награду</a>
+                    <a href="#">Изменить пользователя</a>
+                </th>
+            </tr> 
+
+            <tr class="table-content-3">
+                <th>3</th>
+                <th>Людмила</th>
+                <th>Уранина</th>
+                <th>04.05.1999</th>
+                <th><a href="#">Награды</a></th>
+                <th>
+                    <a href="#">Добавить награду</a>
+                    <a href="#">Изменить пользователя</a>
+                </th>
+            </tr>
+        </table>
+
+        <form action="#" method="post" class="users-form">
+            <ul>
+                <li>
+                  <label for="name">Имя:</label>
+                  <input type="text" id="name" name="user_name">
+                </li>
+                <li>
+                  <label for="lastname">Фамилия:</label>
+                  <input type="text" id="lastname" name="user_lastname">
+                </li>
+                <li>
+                  <label for="birthdate">Дата рождения:</label>
+                  <input type="date" name="user_birthdate">
+                </li>
+                <li class="button">
+                    <button type="submit">Добавить пользователя</button>
+                  </li>
+              </ul>
+        </form>
+    </main>
+    <footer>
+        <div class="footer-copyright">
+            <p class="footer-p">декабрь 2021 &copy;</p>
+        </div>
+    </footer>
+</body>
+</html>

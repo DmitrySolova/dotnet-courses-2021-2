@@ -7,17 +7,17 @@ using System.Linq;
 
 namespace BLL
 {
-    public class UserBL
+    public class UserListBL : IUserBL
     {
-        private IUserDAO usersDAO;
+        private IUserDAO _usersDAO;
         private int _id = 0;
 
-        public UserBL()
+        public UserListBL(IUserDAO usersDAO)
         {
-            usersDAO = new UsersListDAO();
+            _usersDAO = usersDAO;
         }
 
-        private static int CalculateAge(DateTime birthDate)
+        public int CalculateAge(DateTime birthDate)
         {
             DateTime now = DateTime.Now;
 
@@ -29,12 +29,12 @@ namespace BLL
             return age;
         }
 
-        private int GenerateID()
+        public int GenerateID()
         {
             return ++_id;
         }
 
-        private static void ValidateFirstOrLastName(string firstOrLastName)
+        public void ValidateFirstOrLastName(string firstOrLastName)
         {
             if (firstOrLastName == "" || firstOrLastName == null)
                 throw new ArgumentException("First name is empty or null");
@@ -44,7 +44,7 @@ namespace BLL
 
         }
 
-        private static void ValidateBirthdate(DateTime birthdate)
+        public void ValidateBirthdate(DateTime birthdate)
         {
             if (birthdate == null)
                 throw new NullReferenceException("Birthdate is null");
@@ -90,7 +90,7 @@ namespace BLL
             if (user == null)
                 throw new NullReferenceException("User is null");
 
-            usersDAO.Add(user);
+            _usersDAO.Add(user);
         }
 
         public void Remove(User user)
@@ -98,118 +98,95 @@ namespace BLL
             if (user == null)
                 throw new NullReferenceException("User is null");
 
-            usersDAO.Remove(user);
+            _usersDAO.Remove(user);
         }
 
-        public void EditFirstName(User user, string newFirstName)
+        public void Edit(User mainUser, User tempUser)
         {
-            if (user == null)
-                throw new NullReferenceException("User is null");
+            if (mainUser == null)
+                throw new NullReferenceException("Main User is null");
 
-            ValidateFirstOrLastName(newFirstName);
+            if (tempUser == null)
+                throw new NullReferenceException("Temp User is null");
 
-            usersDAO.EditFirstName(user, newFirstName);
-        }
+            ValidateFirstOrLastName(tempUser.FirstName);
+            ValidateFirstOrLastName(tempUser.LastName);
+            ValidateBirthdate(tempUser.Birthdate);
 
-        public void EditLastName(User user, string newLastName)
-        {
-            if (user == null)
-                throw new NullReferenceException("User is null");
-
-            ValidateFirstOrLastName(newLastName);
-
-            usersDAO.EditLastName(user, newLastName);
-        }
-
-        public void EditBirthdate(User user, DateTime newBirthdate)
-        {
-            if (user == null)
-                throw new NullReferenceException("User is null");
-
-            ValidateBirthdate(newBirthdate);
-
-            usersDAO.EditBirthdate(user, newBirthdate);
-        }
-
-        public void EditRewards(User user, string[] rewards)
-        {
-            if (user == null)
-                throw new NullReferenceException("User is null");
-
-            usersDAO.EditRewards(user, rewards);
+            _usersDAO.Edit(mainUser, tempUser);
         }
 
         public IEnumerable<User> GetUsers()
         {
-            return usersDAO.GetUsers();
+            return _usersDAO.GetUsers();
         }
 
         public void SortUserByFirstNameAsc()
         {
-            usersDAO.ClearAndCopyRange((from s in GetUsers()
+            _usersDAO.ClearAndCopyRange((from s in GetUsers()
                                orderby s.FirstName ascending
                                select s).ToList());
         }
 
         public void SortUserByFirstNameDesc()
         {
-            usersDAO.ClearAndCopyRange((from s in GetUsers()
+            _usersDAO.ClearAndCopyRange((from s in GetUsers()
                                orderby s.FirstName descending
                                select s).ToList());
         }
 
         public void SortUserByLastNameAsc()
         {
-            usersDAO.ClearAndCopyRange((from s in GetUsers()
+            _usersDAO.ClearAndCopyRange((from s in GetUsers()
                                orderby s.LastName ascending
                                select s).ToList());
         }
 
         public void SortUserByLastNameDesc()
         {
-            usersDAO.ClearAndCopyRange((from s in GetUsers()
+            _usersDAO.ClearAndCopyRange((from s in GetUsers()
                                orderby s.LastName descending
                                select s).ToList());
         }
 
         public void SortUserByIDAsc()
         {
-            usersDAO.ClearAndCopyRange((from s in GetUsers()
+            _usersDAO.ClearAndCopyRange((from s in GetUsers()
                                orderby s.ID ascending
                                select s).ToList());
         }
 
         public void SortUserByIDDesc()
         {
-            usersDAO.ClearAndCopyRange((from s in GetUsers()
+            _usersDAO.ClearAndCopyRange((from s in GetUsers()
                                orderby s.ID descending
                                select s).ToList());
         }
 
         public void SortUserByBirthdateAsc()
         {
-            usersDAO.ClearAndCopyRange((from s in GetUsers()
+            _usersDAO.ClearAndCopyRange((from s in GetUsers()
                                orderby s.Birthdate ascending
                                select s).ToList());
         }
 
         public void SortUserByBirthdateDesc()
         {
-            usersDAO.ClearAndCopyRange((from s in GetUsers()
+            _usersDAO.ClearAndCopyRange((from s in GetUsers()
                                orderby s.Birthdate descending
                                select s).ToList().ToList());
         }
 
         public void SortUserByAgeeAsc()
         {
-            usersDAO.ClearAndCopyRange((from s in GetUsers()
+            _usersDAO.ClearAndCopyRange((from s in GetUsers()
                                orderby s.Age ascending
                                select s).ToList());
         }
 
         public void SortUserByAgeDesc()
         {
-            usersDAO.ClearAndCopyRange((from s in GetUsers()
+            _usersDAO.ClearAndCopyRange((from s in GetUsers()
                                orderby s.Age descending
                                select s).ToList());
         }

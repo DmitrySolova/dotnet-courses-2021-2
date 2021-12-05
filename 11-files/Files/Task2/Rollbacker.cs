@@ -42,9 +42,8 @@ namespace Task2
                 if (modeFlag == "input")
                 {
                     string inputTime = "";
-                    bool correctInput = false;
-
-                    while (!correctInput)
+                    
+                    while (true)
                     {
                         Console.WriteLine("Введи время в формате dd.mm.yyyy hh-mm-ss");
                         Console.WriteLine("Например - 12.08.1990 17-08-24");
@@ -71,7 +70,6 @@ namespace Task2
 
                         if (inputTime == "stop")
                         {
-                            correctInput = true;
                             break;
                         }
 
@@ -90,9 +88,6 @@ namespace Task2
         private void Rollback(string time)
         {
 
-            string fileName = "";
-            string destFile = "";
-
             string fromPath = Tools.CheckBackslash(_pathConfigure.TempFolderPath) + Tools.CheckBackslash(time);
             string toPath = Tools.CheckBackslash(_pathConfigure.WatchFolderPath);
 
@@ -106,21 +101,7 @@ namespace Task2
                 dir.Delete(true);
             }
 
-            if (Directory.Exists(fromPath))
-            {
-                string[] files = Directory.GetFiles(fromPath);
-
-                foreach (string s in files)
-                {
-                    fileName = Path.GetFileName(s);
-                    destFile = Path.Combine(toPath, fileName);
-                    File.Copy(s, destFile, true);
-                }
-            }
-            else
-            {
-                throw new Exception($"Не могу найти {fromPath}");
-            }
+            Tools.CopyFolder(fromPath, toPath);
 
         }
 

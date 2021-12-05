@@ -7,22 +7,22 @@ using System.Linq;
 
 namespace BLL
 {
-    public class RewardBL
+    public class RewardListBL : IRewardBL
     {
-        private IRewardDAO rewardsDAO;
+        private IRewardDAO _rewardsDAO;
         private int _id = 0;
 
-        public RewardBL()
+        public RewardListBL(IRewardDAO rewardDAO)
         {
-            rewardsDAO = new RewardsListDAO();
+            _rewardsDAO = rewardDAO;
         }
 
-        private int GenerateID()
+        public int GenerateID()
         {
             return ++_id;
         }
 
-        private static void ValidateTitle(string title)
+        public void ValidateTitle(string title)
         {
             if (title == "" || title == null)
                 throw new ArgumentException("Title is empty or null");
@@ -32,7 +32,7 @@ namespace BLL
 
         }
 
-        private static void ValidateDescription(string description)
+        public void ValidateDescription(string description)
         {
             if (description == "" || description == null)
                 throw new ArgumentException("Description is empty or null");
@@ -71,7 +71,7 @@ namespace BLL
             if (reward == null)
                 throw new NullReferenceException("Reward is null");
 
-            rewardsDAO.Add(reward);
+            _rewardsDAO.Add(reward);
         }
 
         public void Remove(Reward reward)
@@ -79,58 +79,52 @@ namespace BLL
             if (reward == null)
                 throw new NullReferenceException("Reward is null");
 
-            rewardsDAO.Remove(reward);
+            _rewardsDAO.Remove(reward);
         }
 
-        public void EditTitle(Reward reward, string newTitle)
+        public void Edit(Reward mainReward, Reward tempReward)
         {
-            if (reward == null)
-                throw new NullReferenceException("Reward is null");
+            if (mainReward == null)
+                throw new NullReferenceException("Main Reward is null");
 
-            ValidateTitle(newTitle);
+            if (tempReward == null)
+                throw new NullReferenceException("Temp Reward is null");
 
-            rewardsDAO.EditTitle(reward, newTitle);
-        }
+            ValidateTitle(tempReward.Title);
+            ValidateDescription(tempReward.Description);
 
-        public void EditDescription(Reward reward, string newDescription)
-        {
-            if (reward == null)
-                throw new NullReferenceException("Reward is null");
-
-            ValidateDescription(newDescription);
-
-            rewardsDAO.EditDescription(reward, newDescription);
+            _rewardsDAO.Edit(mainReward, tempReward);
         }
 
         public IEnumerable<Reward> GetRewards()
         {
-            return rewardsDAO.GetRewards();
+            return _rewardsDAO.GetRewards();
         }
 
         public void SortRewardByTitleAsc()
         {
-            rewardsDAO.ClearAndCopyRange((from s in GetRewards()
+            _rewardsDAO.ClearAndCopyRange((from s in GetRewards()
                                           orderby s.Title ascending
                                           select s).ToList());
         }
 
         public void SortRewardByTitleDesc()
         {
-            rewardsDAO.ClearAndCopyRange((from s in GetRewards()
+            _rewardsDAO.ClearAndCopyRange((from s in GetRewards()
                                           orderby s.Title descending
                                           select s).ToList());
         }
 
         public void SortRewardByIDAsc()
         {
-            rewardsDAO.ClearAndCopyRange((from s in GetRewards()
+            _rewardsDAO.ClearAndCopyRange((from s in GetRewards()
                                           orderby s.Description ascending
                                           select s).ToList());
         }
 
         public void SortRewardByIDDesc()
         {
-            rewardsDAO.ClearAndCopyRange((from s in GetRewards()
+            _rewardsDAO.ClearAndCopyRange((from s in GetRewards()
                                           orderby s.Description descending
                                           select s).ToList());
         }

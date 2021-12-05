@@ -4,23 +4,26 @@ using System;
 using System.Linq;
 using System.ComponentModel;
 using System.Windows.Forms;
+using Interfaces;
 
 namespace Task
 {
-    public partial class Form1 : System.Windows.Forms.Form
+    public partial class MainForm : System.Windows.Forms.Form
     {
-        private readonly UserBL usersBL;
-        private readonly RewardBL rewardsBL;
+        // интерфейсы для BL, т.к. мы можем переиспользовать логику
+        private readonly IUserBL _usersBL;
+        private readonly IRewardBL _rewardsBL;
 
-        public Form1()
+        public MainForm(IUserBL userBL, IRewardBL rewardBL)
         {
-            usersBL = new UserBL();
-            rewardsBL = new RewardBL();
+            // конкретные реализации через конструктор
+            _usersBL = userBL;
+            _rewardsBL = rewardBL;
 
             InitializeComponent();
         }
 
-        private string[] ParseRewardsNames(RewardBL rewards)
+        private string[] ParseRewardsNames(IRewardBL rewards)
         {
             var rewardsList = rewards.GetRewards().ToList();
 
@@ -38,22 +41,21 @@ namespace Task
         private void Form1_Load(object sender, EventArgs e)
         {
 
-            dgvUsers.DataSource = usersBL.InitList();
-            dgvRewards.DataSource = rewardsBL.InitList();
-            //SortUserByIDAsc();
+            dgvUsers.DataSource = _usersBL.InitList();
+            dgvRewards.DataSource = _rewardsBL.InitList();
 
         }
 
         private void DisplayUsers()
         {
             dgvUsers.DataSource = null;
-            dgvUsers.DataSource = usersBL.GetUsers();
+            dgvUsers.DataSource = _usersBL.GetUsers();
         }
 
         private void DisplayRewards()
         {
             dgvRewards.DataSource = null;
-            dgvRewards.DataSource = rewardsBL.GetRewards();
+            dgvRewards.DataSource = _rewardsBL.GetRewards();
         }
 
         private void tsmiAdd_Click(object sender, EventArgs e)
@@ -101,13 +103,13 @@ namespace Task
 
         private void RegisterNewUser()
         {
-            string[] nameOfRewards = ParseRewardsNames(rewardsBL);
+            string[] nameOfRewards = ParseRewardsNames(_rewardsBL);
 
             UserForm userForm = new UserForm(nameOfRewards);
 
             if (userForm.ShowDialog(this) == DialogResult.OK)
             {
-                usersBL.Add(userForm.FirstName, userForm.LastName, userForm.Birthdate, userForm.SelectedRewards);
+                _usersBL.Add(userForm.FirstName, userForm.LastName, userForm.Birthdate, userForm.SelectedRewards);
                 DisplayUsers();
             }
         }
@@ -118,15 +120,14 @@ namespace Task
             {
                 User selectedUser = (User)dgvUsers.SelectedCells[0].OwningRow.DataBoundItem;
 
-                string[] nameOfRewards = ParseRewardsNames(rewardsBL);
+                string[] nameOfRewards = ParseRewardsNames(_rewardsBL);
 
                 UserForm userForm = new UserForm(selectedUser, nameOfRewards);
                 if (userForm.ShowDialog(this) == DialogResult.OK)
                 {
-                    usersBL.EditFirstName(selectedUser, userForm.FirstName);
-                    usersBL.EditLastName(selectedUser, userForm.LastName);
-                    usersBL.EditBirthdate(selectedUser, userForm.Birthdate);
-                    usersBL.EditRewards(selectedUser, userForm.SelectedRewards);
+                    var tempUser = new User(0, userForm.FirstName, userForm.LastName, userForm.Birthdate, userForm.SelectedRewards);
+
+                    _usersBL.Edit(selectedUser, tempUser);
                 }
 
                 DisplayUsers();
@@ -142,7 +143,7 @@ namespace Task
                 if (dgvUsers.SelectedCells.Count > 0)
                 {
                     User selectedUser = (User)dgvUsers.SelectedCells[0].OwningRow.DataBoundItem;
-                    usersBL.Remove(selectedUser);
+                    _usersBL.Remove(selectedUser);
                 }
 
                 DisplayUsers();
@@ -156,7 +157,7 @@ namespace Task
 
             if (rewardForm.ShowDialog(this) == DialogResult.OK)
             {
-                rewardsBL.Add(rewardForm.Title, rewardForm.Description);
+                _rewardsBL.Add(rewardForm.Title, rewardForm.Description);
             }
 
             DisplayRewards();
@@ -168,12 +169,29 @@ namespace Task
             {
                 Reward reward = (Reward)dgvRewards.SelectedCells[0].OwningRow.DataBoundItem;
 
+                string rewardOldTitle = reward.Title;
+
                 RewardForm rewardForm = new RewardForm(reward);
                 if (rewardForm.ShowDialog(this) == DialogResult.OK)
                 {
-                    rewardsBL.EditTitle(reward, rewardForm.Title);
-                    rewardsBL.EditDescription(reward, rewardForm.Description);
+                    var tempReward = new Reward(0, rewardForm.Title, rewardForm.Description);
+
+                    _rewardsBL.Edit(reward, tempReward);
+
+                    foreach (var user in _usersBL.GetUsers())
+                    {
+                        int index = Array.IndexOf(user.Rewards, rewardOldTitle);
+
+                        if (index != -1)
+                        {
+                            user.Rewards[index] = rewardForm.Title;
+                        }
+
+                    }
+
+                    DisplayUsers();
                 }
+
             }
 
             DisplayRewards();
@@ -189,7 +207,7 @@ namespace Task
                 {
                     Reward reward = (Reward)dgvRewards.SelectedCells[0].OwningRow.DataBoundItem;
                     rewardString = reward.Title;
-                    rewardsBL.Remove(reward);
+                    _rewardsBL.Remove(reward);
                 }
             }
 
@@ -197,7 +215,7 @@ namespace Task
 
             if (rewardString != "" && rewardString != null)
             {
-                foreach (var user in usersBL.GetUsers())
+                foreach (var user in _usersBL.GetUsers())
                 {
                     int index = Array.IndexOf(user.Rewards, rewardString);
 
@@ -217,23 +235,23 @@ namespace Task
         {
             if (e.ColumnIndex == 0)
             {
-                usersBL.SortUserByIDAsc();
+                _usersBL.SortUserByIDAsc();
             }
             if (e.ColumnIndex == 1)
             {
-                usersBL.SortUserByFirstNameAsc();
+                _usersBL.SortUserByFirstNameAsc();
             }
             if (e.ColumnIndex == 2)
             {
-                usersBL.SortUserByLastNameAsc();
+                _usersBL.SortUserByLastNameAsc();
             }
             if (e.ColumnIndex == 3)
             {
-                usersBL.SortUserByBirthdateAsc();
+                _usersBL.SortUserByBirthdateAsc();
             }
             if (e.ColumnIndex == 4)
             {
-                usersBL.SortUserByAgeeAsc();
+                _usersBL.SortUserByAgeeAsc();
             }
 
             DisplayUsers();
@@ -243,23 +261,23 @@ namespace Task
         {
             if (e.ColumnIndex == 0)
             {
-                usersBL.SortUserByIDDesc();
+                _usersBL.SortUserByIDDesc();
             }
             if (e.ColumnIndex == 1)
             {
-                usersBL.SortUserByFirstNameDesc();
+                _usersBL.SortUserByFirstNameDesc();
             }
             if (e.ColumnIndex == 2)
             {
-                usersBL.SortUserByLastNameDesc();
+                _usersBL.SortUserByLastNameDesc();
             }
             if (e.ColumnIndex == 3)
             {
-                usersBL.SortUserByBirthdateDesc();
+                _usersBL.SortUserByBirthdateDesc();
             }
             if (e.ColumnIndex == 4)
             {
-                usersBL.SortUserByAgeDesc();
+                _usersBL.SortUserByAgeDesc();
             }
 
             DisplayUsers();
@@ -269,11 +287,11 @@ namespace Task
         {
             if (e.ColumnIndex == 0)
             {
-                rewardsBL.SortRewardByIDAsc();
+                _rewardsBL.SortRewardByIDAsc();
             }
             if (e.ColumnIndex == 1)
             {
-                rewardsBL.SortRewardByTitleAsc();
+                _rewardsBL.SortRewardByTitleAsc();
             }
 
             DisplayRewards();
@@ -283,11 +301,11 @@ namespace Task
         {
             if (e.ColumnIndex == 0)
             {
-                rewardsBL.SortRewardByIDDesc();
+                _rewardsBL.SortRewardByIDDesc();
             }
             if (e.ColumnIndex == 1)
             {
-                rewardsBL.SortRewardByTitleDesc();
+                _rewardsBL.SortRewardByTitleDesc();
             }
 
             DisplayRewards();

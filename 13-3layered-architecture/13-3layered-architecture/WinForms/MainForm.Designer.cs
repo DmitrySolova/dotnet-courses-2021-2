@@ -1,7 +1,7 @@
 ﻿
 namespace Task
 {
-    partial class Form1
+    partial class MainForm
     {
         /// <summary>
         ///  Required designer variable.
@@ -143,7 +143,7 @@ namespace Task
             this.tsmiDelete.Text = "Delete";
             this.tsmiDelete.Click += new System.EventHandler(this.tsmiDelete_Click);
             // 
-            // Form1
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -151,8 +151,10 @@ namespace Task
             this.Controls.Add(this.tcForm1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
-            this.Name = "Form1";
-            this.Text = "Form1";
+            this.MaximumSize = new System.Drawing.Size(816, 485);
+            this.MinimumSize = new System.Drawing.Size(816, 485);
+            this.Name = "MainForm";
+            this.Text = "MainForm";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.tcForm1.ResumeLayout(false);
             this.tpUsers.ResumeLayout(false);

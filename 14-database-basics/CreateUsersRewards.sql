@@ -1,0 +1,11 @@
+CREATE PROCEDURE CreateUsersRewards
+AS
+	CREATE TABLE UsersRewards (
+	UserID INT,
+	RewardID INT,
+	PRIMARY KEY(UserID, RewardID),
+	FOREIGN KEY(UserID) REFERENCES Users(ID),
+	FOREIGN KEY(RewardID) REFERENCES Rewards(ID)
+	)
+GO
+	

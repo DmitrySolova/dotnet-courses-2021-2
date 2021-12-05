@@ -57,7 +57,7 @@ namespace Task2
 
         public static void Stop()
         {
-            Tools.FinalizeFolders();
+            //Tools.FinalizeFolders();
         }
 
     }
