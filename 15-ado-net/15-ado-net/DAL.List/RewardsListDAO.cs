@@ -8,6 +8,12 @@ namespace DAL.List
     public class RewardsListDAO : IRewardDAO
     {
         private List<Reward> _rewardsList = new List<Reward>();
+
+        private int _id = 0;
+        public int GenerateID()
+        {
+            return ++_id;
+        }
         public void Add(Reward reward)
         {
             if (reward is null)

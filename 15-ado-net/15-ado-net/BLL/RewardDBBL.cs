@@ -17,6 +17,7 @@ namespace BLL
             _rewardsDAO = rewardDAO;
         }
 
+        // id на уровень dal в бд, не разделять логику (которая не зависит от dal)
         public int GenerateID()
         {
             return ++_id;
@@ -96,7 +97,7 @@ namespace BLL
         {
             return _rewardsDAO.GetRewards();
         }
-
+        // order by
         public void SortRewardByTitleAsc()
         {
             (from s in GetRewards()

@@ -6,8 +6,8 @@ namespace Interfaces
 {
     public interface IUserDAO
     {
+        public int GenerateID();
         public void Add(User user);
-
         public void ClearAndCopyRange(IEnumerable<User> users);
         public void Remove(User user);
 

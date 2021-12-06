@@ -25,35 +25,20 @@ namespace Task
             var rewardsDAO = new RewardsDBDAO(connectionString);
             var usersDAO = new UsersDBDAO(connectionString);
 
-            DeleteTables(connectionString);
+            //var rewardsDAO = new RewardsListDAO();
+            //var usersDAO = new UsersListDAO();
 
-            usersDAO.CreateAndInitList();
-            rewardsDAO.CreateAndInitList();
+            var rewardBL = new RewardBL(rewardsDAO);
+            var userBL = new UserBL(usersDAO);
 
-            var rewardListBL = new RewardDBBL(rewardsDAO);
-            var userListBL = new UserDBBL(usersDAO);
 
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainForm(userListBL, rewardListBL));
+            Application.Run(new MainForm(userBL, rewardBL));
 
 
         }
 
-        static void DeleteTables(string connectionString)
-        {
-            var connection = new SqlConnection(connectionString);
-            var command = connection.CreateCommand();
-
-            command.CommandText = "DeleteAllTables";
-            command.CommandType = System.Data.CommandType.StoredProcedure;
-
-            connection.Open();
-
-            command.ExecuteNonQuery();
-
-            connection.Close();
-        }
     }
 }

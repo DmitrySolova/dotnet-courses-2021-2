@@ -6,38 +6,22 @@ using System.Data.SqlClient;
 
 namespace DAL.Database
 {
+    // не добавляется награда
     public class UsersDBDAO : IUserDAO
     {
         private string _connectionString = "";
+
+        private int _id = 0;
+        public int GenerateID()
+        {
+            return ++_id;
+        }
 
         public UsersDBDAO(string connectionString)
         {
             _connectionString = connectionString;
         }
 
-        public void CreateAndInitList()
-        {
-            var connection = new SqlConnection(_connectionString);
-            var command = connection.CreateCommand();
-
-            command.CommandText = "CreateUsers";
-            command.CommandType = System.Data.CommandType.StoredProcedure;
-
-            connection.Open();
-
-            command.ExecuteNonQuery();
-
-            connection.Close();
-
-            command.CommandText = "InitUsers";
-            command.CommandType = System.Data.CommandType.StoredProcedure;
-
-            connection.Open();
-
-            command.ExecuteNonQuery();
-
-            connection.Close();
-        }
         public void Add(User user)
         {
             var connection = new SqlConnection(_connectionString);
@@ -123,6 +107,7 @@ namespace DAL.Database
 
             foreach (var reward in mainUser.Rewards)
             {
+                command.Parameters.Clear();
 
                 command.CommandText = "DeleteSelectedRewardByName";
                 command.CommandType = System.Data.CommandType.StoredProcedure;
@@ -141,6 +126,7 @@ namespace DAL.Database
 
             foreach (var reward in tempUser.Rewards)
             {
+                command.Parameters.Clear();
 
                 command.CommandText = "SelectRewardByName";
                 command.CommandType = System.Data.CommandType.StoredProcedure;

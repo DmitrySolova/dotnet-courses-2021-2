@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link href="styles/changeReward.css" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="header-title"> Пользователи и награды </div>
+        <ul class="header-menu">
+            <li><a href="#">Главная</a></li>
+            <li><a href="users.html">Пользователи</a></li>
+            <li><a href="rewards.html">Награды</a></li>
+        </ul>
+    </header>
+    
+    <h1>Это страница с изменением наград</h1>
+
+    <form action="rewards.html" method="post" class="rewards-form">
+        <ul>
+            <li>
+              <label for="title">Название:</label>
+              <input type="text" id="title" name="reward_title">
+            </li>
+            <li>
+              <label for="description">Описание:</label>
+              <input type="text" id="description" name="reward_description">
+            </li>
+            <li class="button">
+                <button type="submit">Изменить награду</button>
+              </li>
+          </ul>
+    </form>
+    <footer>
+        <div class="copyright">
+            <p class="footer-p">декабрь 2021 &copy;</p>
+        </div>
+    </footer>
+</body>
+</html>

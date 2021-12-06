@@ -5,8 +5,8 @@ namespace Interfaces
 {
     public interface IRewardDAO
     {
+        public int GenerateID();
         public void Add(Reward reward);
-
         public void ClearAndCopyRange(IEnumerable<Reward> rewards);
         public void Remove(Reward reward);
 

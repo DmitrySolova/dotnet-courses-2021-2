@@ -7,13 +7,9 @@ namespace Interfaces
 {
     public interface IRewardBL
     {
-        public int GenerateID();
-
         public void ValidateTitle(string title);
 
         public void ValidateDescription(string description);
-
-        public IEnumerable<Reward> InitList();
 
         public void Add(string title, string description);
 
@@ -24,13 +20,6 @@ namespace Interfaces
         public void Edit(Reward mainReward, Reward tempReward);
 
         public IEnumerable<Reward> GetRewards();
-
-        public void SortRewardByTitleAsc();
-
-        public void SortRewardByTitleDesc();
-
-        public void SortRewardByIDAsc();
-
-        public void SortRewardByIDDesc();
+    
     }
 }

@@ -16,7 +16,6 @@ namespace Task
 
         public MainForm(IUserBL userBL, IRewardBL rewardBL)
         {
-            // конкретные реализации через конструктор
             _usersBL = userBL;
             _rewardsBL = rewardBL;
 
@@ -40,22 +39,35 @@ namespace Task
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
-            dgvUsers.DataSource = _usersBL.InitList();
-            dgvRewards.DataSource = _rewardsBL.InitList();
-
+            dgvUsers.DataSource = _usersBL.GetUsers();
+            dgvRewards.DataSource = _rewardsBL.GetRewards();
         }
 
         private void DisplayUsers()
         {
             dgvUsers.DataSource = null;
-            dgvUsers.DataSource = _usersBL.GetUsers();
+            //dgvUsers.DataSource = _usersBL.GetUsers();
+
+            BindingSource bindingUsers = new BindingSource();
+            bindingUsers.SuspendBinding();
+            bindingUsers.DataSource = _usersBL.GetUsers();
+            bindingUsers.ResumeBinding();
+
+            dgvUsers.DataSource = bindingUsers;
+
         }
 
         private void DisplayRewards()
         {
             dgvRewards.DataSource = null;
-            dgvRewards.DataSource = _rewardsBL.GetRewards();
+            //dgvRewards.DataSource = _rewardsBL.GetRewards();
+
+            BindingSource bindingRewards = new BindingSource();
+            bindingRewards.SuspendBinding();
+            bindingRewards.DataSource = _rewardsBL.GetRewards();
+            bindingRewards.ResumeBinding();
+
+            dgvRewards.DataSource = bindingRewards;
         }
 
         private void tsmiAdd_Click(object sender, EventArgs e)
@@ -229,86 +241,6 @@ namespace Task
                 DisplayUsers();
             }
 
-        }
-
-        private void dgvUsers_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
-        {
-            if (e.ColumnIndex == 0)
-            {
-                _usersBL.SortUserByIDAsc();
-            }
-            if (e.ColumnIndex == 1)
-            {
-                _usersBL.SortUserByFirstNameAsc();
-            }
-            if (e.ColumnIndex == 2)
-            {
-                _usersBL.SortUserByLastNameAsc();
-            }
-            if (e.ColumnIndex == 3)
-            {
-                _usersBL.SortUserByBirthdateAsc();
-            }
-            if (e.ColumnIndex == 4)
-            {
-                _usersBL.SortUserByAgeeAsc();
-            }
-
-            DisplayUsers();
-        }
-
-        private void dgvUsers_ColumnHeaderMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
-        {
-            if (e.ColumnIndex == 0)
-            {
-                _usersBL.SortUserByIDDesc();
-            }
-            if (e.ColumnIndex == 1)
-            {
-                _usersBL.SortUserByFirstNameDesc();
-            }
-            if (e.ColumnIndex == 2)
-            {
-                _usersBL.SortUserByLastNameDesc();
-            }
-            if (e.ColumnIndex == 3)
-            {
-                _usersBL.SortUserByBirthdateDesc();
-            }
-            if (e.ColumnIndex == 4)
-            {
-                _usersBL.SortUserByAgeDesc();
-            }
-
-            DisplayUsers();
-        }
-
-        private void dgvRewards_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
-        {
-            if (e.ColumnIndex == 0)
-            {
-                _rewardsBL.SortRewardByIDAsc();
-            }
-            if (e.ColumnIndex == 1)
-            {
-                _rewardsBL.SortRewardByTitleAsc();
-            }
-
-            DisplayRewards();
-        }
-
-        private void dgvRewards_ColumnHeaderMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
-        {
-            if (e.ColumnIndex == 0)
-            {
-                _rewardsBL.SortRewardByIDDesc();
-            }
-            if (e.ColumnIndex == 1)
-            {
-                _rewardsBL.SortRewardByTitleDesc();
-            }
-
-            DisplayRewards();
         }
 
     }

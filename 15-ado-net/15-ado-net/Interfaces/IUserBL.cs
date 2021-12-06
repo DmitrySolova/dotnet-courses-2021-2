@@ -9,16 +9,11 @@ namespace Interfaces
     {
         public int CalculateAge(DateTime birthDate);
 
-        public int GenerateID();
-
         public void ValidateFirstOrLastName(string firstOrLastName);
 
         public void ValidateBirthdate(DateTime birthdate);
 
-        public IEnumerable<User> InitList();
-
         public void Add(string firstName, string lastName, DateTime birthdate, string[] rewards);
-
 
         public void Add(User user);
 
@@ -28,24 +23,5 @@ namespace Interfaces
 
         public IEnumerable<User> GetUsers();
 
-        public void SortUserByFirstNameAsc();
-
-        public void SortUserByFirstNameDesc();
-
-        public void SortUserByLastNameAsc();
-
-        public void SortUserByLastNameDesc();
-
-        public void SortUserByIDAsc();
-
-        public void SortUserByIDDesc();
-
-        public void SortUserByBirthdateAsc();
-
-        public void SortUserByBirthdateDesc();
-
-        public void SortUserByAgeeAsc();
-
-        public void SortUserByAgeDesc();
     }
 }

@@ -8,6 +8,13 @@ namespace DAL.List
     public class UsersListDAO : IUserDAO
     {
         private List<User> _usersList = new List<User>();
+
+        private int _id = 0;
+        public int GenerateID()
+        {
+            return ++_id;
+        }
+
         public void Add(User user)
         {
             if (user == null)
@@ -59,5 +66,6 @@ namespace DAL.List
 
         }
 
+        
     }
 }
